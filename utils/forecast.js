@@ -6,13 +6,13 @@ const forecast = (lat, long, callback) => {
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&appid=${weatherKey}`;
   //   console.log(url);
 
-  request({ url: url, json: true }, (err, res) => {
+  request({ url, json: true }, (err, { body }) => {
     if (err) {
       callback("Unable to connect", undefined);
-    } else if (res.body.cod == 400) {
+    } else if (body.cod == 400) {
       callback("Unable to find location", undefined);
     } else {
-      callback(undefined, res.body);
+      callback(undefined, body);
     }
   });
 };
